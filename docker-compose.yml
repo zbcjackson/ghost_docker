@@ -1,0 +1,20 @@
+nginx:
+  container_name: nginx_proxy
+  image: nginx:1.13-alpine
+  volumes:
+    - ./nginx/conf:/etc/nginx/conf.d
+  ports:
+    - "80:80"
+  links:
+    - ghost
+  restart: always
+
+ghost:
+  container_name: ghost_blog
+  volumes:
+    - ./ghost/content:/var/lib/ghost/content
+    - ./ghost/config.js:/var/lib/ghost/config.js
+  image: ghost:1.5.2-alpine
+  ports:
+    - "2368:2368" 
+  restart: always
